@@ -1,0 +1,10 @@
+{
+  "name": "fe-src",
+  "private": true,
+  "dependencies": {
+    "jquery": "^1",
+    "jquery.cookie": "^1.4.1",
+    "unslider": "^2.0.3"
+  },
+  "devDependencies": {}
+}

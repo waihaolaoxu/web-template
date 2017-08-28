@@ -1,0 +1,95 @@
+$btn-border-radius:2px;
+$text-color:$brand-content;
+$btn-default-bg:$brand-bg;
+$btn-default-border:$brand-border;
+
+@mixin buttonVariant($color, $background, $border) {
+  color: $color !important;
+  background-color: $background;
+  border-color: $border;
+
+  &:hover,
+  &:focus,
+  &:active,
+  &.active,
+  .open .dropdown-toggle {
+    color: $color !important;
+    background-color: darken($background, 5%);
+        border-color: darken($border, 8%);
+  }
+  &:active,
+  &.active,
+  .open .dropdown-toggle{
+    background-image: none;
+  }
+  &.disabled,
+  &[disabled],
+  fieldset[disabled]{
+    &:hover,
+    &:focus,
+    &:active,
+    &.active {
+      background-color: $background;
+          border-color: $border
+    }
+  }
+}
+
+
+
+
+
+.btn{
+    border-radius: $btn-border-radius;
+    outline: 0!important;
+    cursor: pointer;
+    line-height: 2;
+    display: inline-block;
+    padding: 0 15px;
+    border:solid 1px $btn-default-border;
+}
+
+.btn-default{
+    @include buttonVariant($text-color, $btn-default-bg, $btn-default-border);
+}
+
+.btn-primary{
+    @include buttonVariant(#fff, $brand-primary, $brand-primary);
+    &.btn-line{
+        @include buttonVariant($brand-primary, #fff, $brand-primary);
+        &:hover{
+            background-color: $brand-primary;
+            color:#fff !important;
+        }
+    }
+}
+
+.btn-danger{
+    @include buttonVariant(#fff, $brand-danger, $brand-danger);
+    &.btn-line{
+        @include buttonVariant($brand-danger, #fff, $brand-danger);
+        &:hover{
+            background-color: $brand-danger;
+            color:#fff !important;
+        }
+    }
+}
+
+.btn-dark{
+    @include buttonVariant(#fff, $brand-dark, $brand-dark);
+    &.btn-line{
+        @include buttonVariant($brand-dark, #fff, $brand-dark);
+        &:hover{
+            background-color: $brand-dark;
+            color:#fff !important;
+        }
+    }
+}
+
+.btn-block {
+    display: block;
+    padding-left: 12px;
+    padding-right: 12px;
+}
+
+// TODO btn-size

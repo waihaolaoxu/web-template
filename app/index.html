@@ -1,0 +1,86 @@
+<!doctype html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>页面模版</title>
+  <!-- build:css styles/main.css -->
+  <link rel="stylesheet" href="styles/main.css">
+  <!-- endbuild -->
+
+  <style>
+    body{padding-bottom: 100px;}
+    dl{border:solid 1px #eee;margin-top: 20px;}
+    dt{line-height: 40px;background-color: #fafafa;border-bottom: solid 1px #eee;padding: 0 15px;}
+    dd{padding:15px;}
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <dl>
+      <dt>字体颜色</dt>
+      <dd>
+        <p class="text-primary text-center">text-primary：浅黄色</p>
+        <p class="text-light text-center">text-light：高亮色</p>
+        <p class="text-danger text-center">text-danger：深黄色</p>
+        <p class="text-dark text-center">text-dark：黑色</p>
+      </dd>
+    </dl>
+    <dl>
+      <dt>背景颜色</dt>
+      <dd>
+        <p class="bg text-center">bg</p>
+        <p class="bg-primary text-center">bg-primary</p>
+        <p class="bg-light text-center">bg-light</p>
+        <p class="bg-danger text-center">bg-danger</p>
+        <p class="bg-dark text-center text-white">bg-dark</p>
+      </dd>
+    </dl>
+    <dl>
+      <dt>按钮组件</dt>
+      <dd>
+        <a class="btn btn-primary">btn-primary</a>
+        <a class="btn btn-primary btn-line">btn-line</a><br><br>
+        <a class="btn btn-default">btn-defalut</a><br><br>
+        <a class="btn btn-dark">btn-dark</a>
+        <a class="btn btn-dark btn-line">btn-line</a><br><br>
+        <a class="btn btn-danger">btn-danger</a>
+        <a class="btn btn-danger btn-line">btn-line</a>
+      </dd>
+    </dl>
+  </div>
+
+
+  <!-- build:js scripts/vendor.js -->
+  <script src="/bower_components/jquery/dist/jquery.js"></script>
+  <script src="/bower_components/jquery.cookie/jquery.cookie.js"></script>
+  <script src='/bower_components/unslider/src/js/unslider.js'></script>
+  <script src="scripts/layer/layer.js"></script>
+  <!-- endbuild -->
+
+  <!-- build:js scripts/main.js -->
+  <script src="scripts/main.js"></script>
+  <!-- endbuild -->
+  
+  <script type="text/javascript">
+  var page = Page({
+    onReady:function(){
+      console.log('on ready');
+    },
+    onLoad:function(){
+      console.log('on load');
+    },
+    onResize:function(){
+      console.log('on resize');
+    },
+    onScroll:function(){
+      console.log('on scroll')
+    }
+  })
+  </script>
+</body>
+
+</html>

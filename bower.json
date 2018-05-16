@@ -1,12 +1,10 @@
 {
-  "name": "fe-src",
+  "name": "yo",
   "private": true,
   "dependencies": {
     "jquery": "^1",
     "jquery.cookie": "^1.4.1",
-    "unslider": "^2.0.3",
     "xsl.reset-css": "^1.0.0",
-    "xsl.jquery-validate": "^1.0.0"
-  },
-  "devDependencies": {}
+    "xsl.jquery-validate": "^1.0.1"
+  }
 }

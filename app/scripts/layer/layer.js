@@ -1,4 +1,4 @@
-﻿/**
+/**
 
  @Name：layer v3.0.3 Web弹层组件
  @Author：贤心
@@ -8,13 +8,13 @@
  */
 
 ;!function(window, undefined){
-"use strict";
+'use strict';
 
 var isLayui = window.layui && layui.define, $, win, ready = {
   getPath: function(){
     var js = document.scripts, script = js[js.length - 1], jsPath = script.src;
     if(script.getAttribute('merge')) return;
-    return jsPath.substring(0, jsPath.lastIndexOf("/") + 1);
+    return jsPath.substring(0, jsPath.lastIndexOf('/') + 1);
   }(),
 
   config: {}, end: {}, minIndex: 0, minLeft: [],
@@ -29,7 +29,7 @@ var layer = {
   v: '3.0.3',
   ie: function(){ //ie版本
     var agent = navigator.userAgent.toLowerCase();
-    return (!!window.ActiveXObject || "ActiveXObject" in window) ? (
+    return (!!window.ActiveXObject || 'ActiveXObject' in window) ? (
       (agent.match(/msie\s(\d+)/) || [])[1] || '11' //由于ie11并没有msie的标识
     ) : false;
   }(),
@@ -85,7 +85,7 @@ var layer = {
   ready: function(callback){
     var cssname = 'skinlayercss', ver = '303';
     isLayui ? layui.addcss('modules/layer/default/layer.css?v='+layer.v+ver, callback, cssname)
-    : layer.link('skin/default/layer.css?v='+layer.v+ver, callback, cssname);
+    : layer.link('layer/skin/default/layer.css?v='+layer.v+ver, callback, cssname);
     return this;
   },
   
@@ -223,7 +223,7 @@ Class.pt.vessel = function(conType, callback){
       + '</div>'
       + '<span class="layui-layer-setwin">'+ function(){
         var closebtn = ismax ? '<a class="layui-layer-min" href="javascript:;"><cite></cite></a><a class="layui-layer-ico layui-layer-max" href="javascript:;"></a>' : '';
-        config.closeBtn && (closebtn += '<a class="layui-layer-ico '+ doms[7] +' '+ doms[7] + (config.title ? config.closeBtn : (config.type == 4 ? '1' : '2')) +'" href="javascript:;"></a>');
+        config.closeBtn && (closebtn += '<a class="iconfont icon-iconfontguanbi '+ doms[7] +' '+ doms[7] + (config.title ? config.closeBtn : (config.type == 4 ? '1' : '2')) +'" href="javascript:;"></a>');
         return closebtn;
       }() + '</span>'
       + (config.btn ? function(){

@@ -1,0 +1,24 @@
+@import "bower_components/xsl.reset-css/reset";
+input,
+select {
+    outline: 0;
+}
+body {
+    font-size: 12px;
+    color: #666;
+    /* background: #fafafa; */
+}
+
+a {
+    cursor: pointer;
+}
+
+html {
+    // font-family: "SF Pro SC", "SF Pro Text", "SF Pro Icons", "PingFang SC", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
+    font-family:PingFang SC,Lantinghei SC,Helvetica Neue,Helvetica,Arial,Microsoft YaHei,\\5FAE\8F6F\96C5\9ED1,STHeitiSC-Light,simsun,\\5B8B\4F53,WenQuanYi Zen Hei,WenQuanYi Micro Hei,"sans-serif";
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-size-adjust: 100%!important;
+    -ms-text-size-adjust: 100%!important;
+    -webkit-text-size-adjust: 100%!important;
+}

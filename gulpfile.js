@@ -1,4 +1,6 @@
-// generated on 2017-08-06 using generator-webapp 3.0.1
+// generated on 2018-05-14 using generator-webapp 3.0.1
+// 自动化前端工程
+
 const gulp = require('gulp');
 const gulpLoadPlugins = require('gulp-load-plugins');
 const browserSync = require('browser-sync').create();
@@ -10,19 +12,40 @@ const reload = browserSync.reload;
 
 let dev = true;
 
+const config = {
+  //第三方代码
+  vendor: [
+    'bower_components/jquery/jquery.js',
+    'bower_components/jquery.cookie/jquery.cookie.js',
+    'app/scripts/layer/layer.js',
+    'bower_components/xsl.jquery-validate/jquery.validate.js'
+  ],
+  //压缩配置
+  uglify: {
+    compress: {
+        drop_console: true
+    },
+    ie8: true,
+    output: {
+        keep_quoted_props: true,
+        quote_style: 3
+    }
+  },
+}
+
 gulp.task('styles', () => {
   return gulp.src('app/styles/*.scss')
     .pipe($.plumber())
     .pipe($.if(dev, $.sourcemaps.init()))
     .pipe($.sass.sync({
-      outputStyle: 'expanded',
+      outputStyle: 'compressed', //'expanded'
       precision: 10,
       includePaths: ['.']
     }).on('error', $.sass.logError))
-    .pipe($.autoprefixer({ browsers: ['> 1%', 'last 2 versions', 'Firefox ESR'] }))
+    .pipe($.autoprefixer({browsers: ['> 1%', 'last 2 versions', 'Firefox ESR']}))
     .pipe($.if(dev, $.sourcemaps.write()))
-    .pipe(gulp.dest('.tmp/styles'))
-    .pipe(reload({ stream: true }));
+    .pipe($.if(dev, gulp.dest('.tmp/styles'), gulp.dest('dist/styles')))
+    .pipe(reload({stream: true}));
 });
 
 gulp.task('scripts', () => {
@@ -31,39 +54,39 @@ gulp.task('scripts', () => {
     .pipe($.if(dev, $.sourcemaps.init()))
     .pipe($.babel())
     .pipe($.if(dev, $.sourcemaps.write('.')))
-    .pipe(gulp.dest('.tmp/scripts'))
-    .pipe(reload({ stream: true }));
-});
-
-function lint(files) {
-  return gulp.src(files)
-    .pipe($.eslint({ fix: true }))
-    .pipe(reload({ stream: true, once: true }))
-    .pipe($.eslint.format())
-    .pipe($.if(!browserSync.active, $.eslint.failAfterError()));
-}
-
-gulp.task('lint', () => {
-  return lint('app/scripts/**/*.js')
-    .pipe(gulp.dest('app/scripts'));
+    .pipe($.if(!dev, $.uglify(config.uglify)))
+    .pipe($.if(dev, gulp.dest('.tmp/scripts'), gulp.dest('dist/scripts')))
+    .pipe(reload({stream: true}));
 });
 
 gulp.task('html', ['styles', 'scripts'], () => {
   return gulp.src('app/*.html')
-    .pipe($.useref({ searchPath: ['.tmp', 'app', '.'] }))
-    .pipe($.if(/\.js$/, $.uglify({ compress: { drop_console: true } })))
-    .pipe($.if(/\.css$/, $.cssnano({ safe: true, autoprefixer: false })))
+    .pipe($.useref({searchPath: ['.tmp', 'app', '.']}))
+    // .pipe($.if(/\.js$/, $.uglify({compress: {drop_console: true}})))
+    // .pipe($.if(/\.css$/, $.cssnano({safe: true, autoprefixer: false})))
     .pipe($.if(/\.html$/, $.htmlmin({
       collapseWhitespace: false, //压缩html
-      minifyCSS: true, //压缩页面CSS
-      minifyJS: { compress: { drop_console: true } }, //压缩页面JS
-      processConditionalComments: true, //
-      removeComments: true, //清除HTML注释
-      removeEmptyAttributes: true, //删除所有空格作属性值 <input id="" />
-      removeScriptTypeAttributes: true, //删除<script>的type="text/javascript"
-      removeStyleLinkTypeAttributes: true //删除<style>和<link>的type="text/css"
+        minifyCSS: true, //压缩页面CSS
+        // minifyJS: { compress: { drop_console: true } }, //压缩页面JS
+        processConditionalComments: true, //
+        removeComments: true, //清除HTML注释
+        removeEmptyAttributes: true, //删除所有空格作属性值 <input id="" />
+        removeScriptTypeAttributes: true, //删除<script>的type="text/javascript"
+        removeStyleLinkTypeAttributes: true //删除<style>和<link>的type="text/css"
     })))
     .pipe(gulp.dest('dist'));
+});
+
+gulp.task('html1', () => {
+    return gulp.src('app/*.html')
+        .pipe($.fileInclude({
+            prefix: '@@',
+            basepath: './app/htmlBlocks/',
+            context: {
+
+            }
+        }))
+        .pipe(gulp.dest('.tmp'));
 });
 
 gulp.task('images', () => {
@@ -73,29 +96,38 @@ gulp.task('images', () => {
 });
 
 gulp.task('fonts', () => {
-  return gulp.src(require('main-bower-files')('**/*.{eot,svg,ttf,woff,woff2}', function(err) {})
-      .concat('app/fonts/**/*'))
+  return gulp.src(require('main-bower-files')('**/*.{eot,svg,ttf,woff,woff2}', function (err) {})
+    .concat('app/fonts/**/*'))
     .pipe($.if(dev, gulp.dest('.tmp/fonts'), gulp.dest('dist/fonts')));
 });
 
 gulp.task('extras', () => {
   return gulp.src([
-    'app/*'
+    'app/*',
+    '!app/*.html'
   ], {
     dot: true
   }).pipe(gulp.dest('dist'));
 });
 
-gulp.task('clean', del.bind(null, ['.tmp', 'dist']));
+gulp.task('clean', del.bind(null, ['.tmp']));
+
+gulp.task('vendorJs', () => {
+  return gulp.src(config.vendor)
+    .pipe($.concat('vendor.js'))
+    .pipe($.plumber())
+    .pipe($.babel())
+    .pipe($.uglify(config.uglify))
+    .pipe($.if(dev,gulp.dest('.tmp/scripts'),gulp.dest('dist/scripts')))
+});
 
 gulp.task('serve', () => {
-  runSequence(['clean'], ['styles', 'scripts', 'fonts'], () => {
+  runSequence(['clean'], ['styles', 'scripts', 'fonts', 'html1','vendorJs'], () => {
     browserSync.init({
       notify: false,
       port: 9000,
       server: {
-        baseDir: ['app', '.tmp'],
-        directory: true,
+        baseDir: ['.tmp', 'app'],
         routes: {
           '/bower_components': 'bower_components'
         }
@@ -103,30 +135,72 @@ gulp.task('serve', () => {
     });
 
     gulp.watch([
-      'app/**/*.html',
+      'app/*.html',
       'app/images/**/*',
       '.tmp/fonts/**/*'
-    ]).on('change', reload);
+    ]).on('change', function(){
+        setTimeout(reload,200)
+    });
 
     gulp.watch('app/styles/**/*.scss', ['styles']);
     gulp.watch('app/scripts/**/*.js', ['scripts']);
     gulp.watch('app/fonts/**/*', ['fonts']);
+    gulp.watch('bower.json', ['fonts']);
+    gulp.watch(['app/*.html', 'app/htmlBlocks/**/*.html'], ['html1']);
+  });
+});
+
+gulp.task('serve:dist', ['default'], () => {
+  browserSync.init({
+    notify: false,
+    port: 9000,
+    server: {
+      baseDir: ['dist']
+    }
   });
 });
 
 
-gulp.task('copy', ['lint', 'html', 'images', 'fonts', 'extras'], () => {
-  // gulp.src(['dist/**/*','!dist/*.html']).pipe(gulp.dest('../FE_DIST/a-project'));
-  return gulp.src('dist/**/*').pipe($.size({ title: 'build', gzip: true }));
-});
-gulp.task('start-build', () => {
-  return new Promise(resolve => {
-    dev = false;
-    runSequence(['clean'], 'copy', resolve);
-  });
+//整体打包
+gulp.task('build-start', ['vendorJs','html', 'scripts', 'styles', 'images', 'fonts', 'extras'], () => {
+  return gulp.src('dist/**/*').pipe($.size({title: 'build', gzip: true}));
 });
 gulp.task('build', () => {
-  runSequence(['start-build'],function(){
-    console.log('---------- 打包完毕 ----------');
-  })
+  return new Promise(resolve => {
+    dev = false;
+    runSequence(['clean'], 'build-start', resolve);
+  });
 });
+
+
+// 帮助
+gulp.task('default', () => {
+  console.log(`gulp build            整体打包`);
+  console.log(`gulp serve            启动开发服务`);
+  console.log(`gulp serve:dist       启动dist目录服务`);
+  console.log(`gulp css              单独编译scss`);
+  console.log(`gulp js               单独编译main.js`);
+  console.log(`gulp vjs              单独编译vendor.js`);
+});
+
+
+// css、js 编译
+gulp.task('css', () => {
+  return new Promise(resolve => {
+    dev = false;
+    runSequence(['styles'], resolve);
+  });
+});
+gulp.task('js', () => {
+  return new Promise(resolve => {
+    dev = false;
+    runSequence(['scripts'], resolve);
+  });
+});
+gulp.task('vjs', () => {
+  return new Promise(resolve => {
+    dev = false;
+    runSequence(['vendorJs'], resolve);
+  });
+});
+

@@ -43,6 +43,17 @@ $url2:'/images/';
     -webkit-box-orient: vertical;
     -webkit-line-clamp: $num;
 }
+@mixin line_over_auto($num:2, $f:14, $l:1.5) {
+    display: block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: $num;
+    line-height:$l;
+    font-size:$f+px;
+    max-height: $f*$l*$num+px;
+}
 
 @mixin center($w){
     width:$w+px;

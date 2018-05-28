@@ -17,7 +17,7 @@ const config = {
   vendor: [
     'bower_components/jquery/jquery.js',
     'bower_components/jquery.cookie/jquery.cookie.js',
-    'app/scripts/layer/layer.js',
+    'app/scripts/layer.js',
     'bower_components/xsl.jquery-validate/jquery.validate.js'
   ],
   //压缩配置

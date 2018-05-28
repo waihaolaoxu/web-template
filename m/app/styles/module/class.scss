@@ -128,17 +128,6 @@ $w:1170px; //主要内容宽度
   @extend .full-h;
 }
 
-// css3图片裁切
-.cover {
-  @extend .full;
-  object-fit: cover;
-}
-
-.contain {
-  @extend .full;
-  object-fit: contain;
-}
-
 //图片划过放大
 .zoomBox {
   img {
@@ -238,4 +227,31 @@ $w:1170px; //主要内容宽度
   .f#{$i} {
     font-size: 1px * $i !important;
   }
+}
+
+
+
+//移动端相关
+.flex-box {
+  display: flex;
+}
+
+.flex1 {
+  -webkit-box-flex: 1;
+  -webkit-flex: 1;
+  -ms-flex: 1;
+  box-flex: 1;
+  flex: 1;
+  overflow: hidden;
+  display: block;
+}
+
+.cover {
+  @extend .full;
+  object-fit: cover;
+}
+
+.contain {
+  @extend .full;
+  object-fit: contain;
 }

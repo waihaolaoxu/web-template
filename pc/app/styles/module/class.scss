@@ -1,0 +1,257 @@
+$w:1170px; //主要内容宽度
+// 容器
+.w {
+  width: $w;
+}
+
+.container {
+  width: $w;
+  margin: 0 auto;
+}
+
+.areal {
+  width: 800px;
+  float: left;
+}
+
+.arear {
+  width: 300px;
+  float: right;
+}
+
+// 禁止选中
+.no-select {
+  user-select: none;
+}
+
+// 鼠标手型
+.pointer {
+  cursor: pointer;
+}
+
+// 取消圆角
+.no-radius {
+  border-radius: 0 !important;
+}
+
+// 去掉边框
+.no-border {
+  border-width: 0 !important;
+}
+
+// 文本方向
+.tc {
+  text-align: center;
+}
+
+.tl {
+  text-align: left;
+}
+
+.tr {
+  text-align: right;
+}
+
+// 定位
+.pa {
+  position: absolute;
+}
+
+.pr {
+  position: relative;
+}
+
+.pf {
+  position: fixed;
+}
+
+// 浮动
+.fl {
+  float: left !important;
+}
+
+.fr {
+  float: right !important;
+}
+
+.fn {
+  float: none !important;
+}
+
+// 清除浮动
+.clearfix {
+  _zoom: 1;
+}
+
+.clearfix:after {
+  content: ".";
+  display: block;
+  height: 0;
+  clear: both;
+  visibility: hidden;
+  height: 0;
+  overflow: hidden;
+  line-height: 0;
+}
+
+.clear {
+  clear: both;
+}
+
+// 内联块元素
+.inline {
+  display: inline-block;
+}
+
+.v-vertical {
+  vertical-align: middle;
+}
+
+.block {
+  display: block;
+}
+
+.hide {
+  display: none;
+}
+
+.full-h {
+  height: 100%;
+}
+
+.full-w {
+  width: 100%;
+}
+
+.full {
+  @extend .full-w;
+  @extend .full-h;
+}
+
+//图片划过放大
+.zoomBox {
+  img {
+    @include tran(transform);
+  }
+  &:hover .zoom {
+    @include transform(scale(1.05));
+  }
+}
+
+// 溢出处理
+.over {
+  overflow: hidden;
+}
+
+.over-x {
+  overflow: hidden;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.over-y {
+  overflow: hidden;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+//过度效果
+.tran {
+  @include tran;
+}
+
+//透明度
+@for $i from 1 through 10 {
+  .opacity#{$i} {
+    opacity: $i/10;
+  }
+  .bg-opacity#{$i} {
+    background-color: rgba(0, 0, 0, $i/10);
+  }
+}
+
+// 超长省略号
+.ellipsis {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+@for $i from 2 through 8 {
+  .ellipsis#{$i} {
+    @include line_over($i);
+  }
+  .ellipsis#{$i}-auto {
+    @include line_over_auto($i);
+  }
+}
+
+// 间距填充、圆角
+@for $i from 1 through 80 {
+  .mt#{$i} {
+    margin-top:#{$i}px !important;
+  }
+  .mb#{$i} {
+    margin-bottom:#{$i}px !important;
+  }
+  .ml#{$i} {
+    margin-left:#{$i}px !important;
+  }
+  .mr#{$i} {
+    margin-right:#{$i}px !important;
+  }
+
+
+  .pd#{$i} {
+    padding:#{$i}px !important;
+  }
+  .pdl#{$i} {
+    padding-left:#{$i}px !important;
+  }
+  .pdr#{$i} {
+    padding-right:#{$i}px !important;
+  }
+  .pdt#{$i} {
+    padding-top:#{$i}px !important;
+  }
+  .pdb#{$i} {
+    padding-bottom:#{$i}px !important;
+  }
+  .radius#{$i} {
+    border-radius:#{$i}px !important;
+  }
+}
+
+// 字号
+@for $i from 12 through 50 {
+  .f#{$i} {
+    font-size: 1px * $i !important;
+  }
+}
+
+
+
+//移动端相关
+.flex-box {
+  display: flex;
+}
+
+.flex1 {
+  -webkit-box-flex: 1;
+  -webkit-flex: 1;
+  -ms-flex: 1;
+  box-flex: 1;
+  flex: 1;
+  overflow: hidden;
+  display: block;
+}
+
+.cover {
+  @extend .full;
+  object-fit: cover;
+}
+
+.contain {
+  @extend .full;
+  object-fit: contain;
+}

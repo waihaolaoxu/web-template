@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="">
+<head>
+  <meta charset="utf-8">
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>前端自动化模版</title>
+  @@include('css.html',{"style":1})
+</head>
+<body>
+  @@include('header.html')
+  <div class="container">
+    <div class="source">
+      <div class="row">
+        <button type="button" class="button button-default">
+          <span>默认按钮</span>
+        </button>
+        <button type="button" class="button button-primary">
+          <span>主要按钮</span>
+        </button>
+      </div>
+      <div class="row">
+        <button type="button" class="button button-default is-plain">
+          <span>朴素按钮</span>
+        </button>
+        <button type="button" class="button button-primary is-plain">
+          <span>主要按钮</span>
+        </button>
+      </div>
+      <div class="row">
+        <button type="button" class="button button-default is-round">
+          <span>圆角按钮</span>
+        </button>
+        <button type="button" class="button button-primary is-round">
+          <span>主要按钮</span>
+        </button>
+      </div>
+      <div class="row">
+        <button type="button" class="button button-default is-round is-disabled">
+          <span>禁用按钮</span>
+        </button>
+        <button type="button" class="button button-primary is-round is-disabled">
+          <span>禁用按钮</span>
+        </button>
+      </div>
+    </div>
+    
+    <button type="button" class="button button-default" onclick="page.form()">
+      <span>弹层表单</span>
+    </button>
+
+  </div>
+  @@include('footer.html')
+  <script>
+    var page = Page({
+      
+    })
+  </script>
+</body>
+</html>

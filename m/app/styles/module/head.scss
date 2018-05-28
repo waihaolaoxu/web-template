@@ -1,0 +1,66 @@
+// 头部
+.head{
+  height: 45px;
+  position: fixed;
+  width: 7.5rem;
+  left: 50%;
+  margin-left: -3.75rem;
+  top: 0;
+  color: #fff;
+  line-height: 45px;
+  z-index: 110;
+  background:#000;
+  .back{
+      width: 45px;
+      height: 100%;
+      position: absolute;
+      left:0;
+      top:0;
+      text-align: center;
+  }
+  // 标题
+  .tit{
+      text-align: center;
+      font-size:16px;
+  }
+  // 右侧菜单按钮
+  em.public_meun {
+      width: 45px;
+      position: absolute;
+      right: 0;
+      top: 0;
+      height: 100%;
+      i {
+          position: absolute;
+          top: 50%;
+          width: 60%;
+          height: 1px;
+          background-color: #fff;
+          left: 20%;
+          display: block;
+          margin-top: -9px;
+          @include tran();
+          &:nth-of-type(2) {
+              margin: 0;
+          }
+          &:last-of-type {
+              margin-top: 9px;
+          }
+      }
+  }
+  em.on {
+      i {
+          &:first-of-type {
+              @include transform(translate(0,9px) rotate(-45deg));
+          }
+
+          &:nth-of-type(2) {
+              @include transform(scale(0,1));
+          }
+
+          &:last-of-type {
+              @include transform(translate(0,-8px) rotate(45deg));
+          }
+      }
+  }
+}

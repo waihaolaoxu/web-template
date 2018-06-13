@@ -61,9 +61,16 @@ gulp.task('scripts', () => {
 
 gulp.task('html', ['styles', 'scripts'], () => {
   return gulp.src('app/*.html')
-    .pipe($.useref({searchPath: ['.tmp', 'app', '.']}))
+    // .pipe($.useref({searchPath: ['.tmp', 'app', '.']}))
     // .pipe($.if(/\.js$/, $.uglify({compress: {drop_console: true}})))
     // .pipe($.if(/\.css$/, $.cssnano({safe: true, autoprefixer: false})))
+    .pipe($.fileInclude({
+        prefix: '@@',
+        basepath: './app/htmlBlocks/',
+        context: {
+
+        }
+    }))
     .pipe($.if(/\.html$/, $.htmlmin({
       collapseWhitespace: false, //压缩html
         minifyCSS: true, //压缩页面CSS

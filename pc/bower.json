@@ -4,7 +4,6 @@
   "dependencies": {
     "jquery": "^1",
     "jquery.cookie": "^1.4.1",
-    "xsl.reset-css": "^1.0.0",
     "xsl.jquery-validate": "^1.0.1"
   }
 }

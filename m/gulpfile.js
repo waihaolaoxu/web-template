@@ -15,10 +15,14 @@ let dev = true;
 const config = {
   //第三方代码
   vendor: [
-    'bower_components/jquery/jquery.js',
-    'bower_components/jquery.cookie/jquery.cookie.js',
-    'app/scripts/layer/layer.js',
-    'bower_components/xsl.jquery-validate/jquery.validate.js'
+    'vendor/jquery/jquery.js',
+    'vendor/jquery/jquery.cookie.js',
+    'vendor/jquery/jquery.validate.js',
+    'vendor/layer/layer.js',
+    'vendor/swiper/swiper.min.js'
+  ],
+  vendor_css:[
+    'vendor/swiper/swiper.min.css'
   ],
   //压缩配置
   uglify: {
@@ -34,6 +38,10 @@ const config = {
 }
 
 gulp.task('styles', () => {
+  gulp.src(config.vendor_css)
+    .pipe($.concat('vendor.css'))
+    .pipe($.if(dev, gulp.dest('.tmp/styles'), gulp.dest('dist/styles'))) //连接第三方css
+    
   return gulp.src('app/styles/*.scss')
     .pipe($.plumber())
     .pipe($.if(dev, $.sourcemaps.init()))
@@ -43,6 +51,7 @@ gulp.task('styles', () => {
       includePaths: ['.']
     }).on('error', $.sass.logError))
     .pipe($.autoprefixer({browsers: ['> 1%', 'last 2 versions', 'Firefox ESR']}))
+    .pipe($.concat(config.vendor_css)) //连接第三方css
     .pipe($.if(dev, $.sourcemaps.write()))
     .pipe($.if(dev, gulp.dest('.tmp/styles'), gulp.dest('dist/styles')))
     .pipe(reload({stream: true}));
@@ -111,6 +120,7 @@ gulp.task('fonts', () => {
 gulp.task('extras', () => {
   return gulp.src([
     'app/*',
+    '!app/htmlBlocks',
     '!app/*.html'
   ], {
     dot: true

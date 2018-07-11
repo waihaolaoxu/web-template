@@ -2,8 +2,6 @@
   "name": "yo",
   "private": true,
   "dependencies": {
-    "jquery": "^1",
-    "jquery.cookie": "^1.4.1",
-    "xsl.jquery-validate": "^1.0.1"
+    
   }
 }

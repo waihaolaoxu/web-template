@@ -15,11 +15,15 @@ let dev = true;
 const config = {
   //第三方代码
   vendor: [
-    'bower_components/jquery/jquery.js',
-    'bower_components/jquery.cookie/jquery.cookie.js',
-    'app/scripts/layer/layer.js',
-    'bower_components/xsl.jquery-validate/jquery.validate.js'
+    'app/vendor/jquery/jquery.js',
+    'app/vendor/jquery/jquery.cookie.js',
+    'app/vendor/jquery/jquery.cookie.js',
+    'app/vendor/swiper/swiper-2.7.6.js'
   ],
+  vendor_css: [
+    'app/vendor/swiper/swiper-2.7.6.css'
+  ],
+  
   //压缩配置
   uglify: {
     compress: {
@@ -34,6 +38,10 @@ const config = {
 }
 
 gulp.task('styles', () => {
+  gulp.src(config.vendor_css)
+    .pipe($.concat('vendor.css'))
+    .pipe($.if(dev, gulp.dest('.tmp/styles'), gulp.dest('dist/styles'))) //连接第三方css
+
   return gulp.src('app/styles/*.scss')
     .pipe($.plumber())
     .pipe($.if(dev, $.sourcemaps.init()))
@@ -111,6 +119,7 @@ gulp.task('fonts', () => {
 gulp.task('extras', () => {
   return gulp.src([
     'app/*',
+    '!app/htmlBlocks',
     '!app/*.html'
   ], {
     dot: true
@@ -123,7 +132,7 @@ gulp.task('vendorJs', () => {
   return gulp.src(config.vendor)
     .pipe($.concat('vendor.js'))
     .pipe($.plumber())
-    .pipe($.babel())
+    // .pipe($.babel())
     .pipe($.uglify(config.uglify))
     .pipe($.if(dev,gulp.dest('.tmp/scripts'),gulp.dest('dist/scripts')))
 });
@@ -211,4 +220,3 @@ gulp.task('vjs', () => {
     runSequence(['vendorJs'], resolve);
   });
 });
-

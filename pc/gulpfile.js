@@ -17,7 +17,7 @@ const config = {
   vendor: [
     'app/vendor/jquery/jquery.js',
     'app/vendor/jquery/jquery.cookie.js',
-    'app/vendor/jquery/jquery.cookie.js',
+    'app/vendor/jquery/jquery.validate.js',
     'app/vendor/swiper/swiper-2.7.6.js'
   ],
   vendor_css: [
